@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoDrive | Smart EV Market Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        eco: { 50: '#ecfdf5', 100: '#d1fae5', 500: '#10b981', 600: '#059669', 700: '#047857', 900: '#064e3b' },
+                        brand: { blue: '#1e3a8a' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 h-screen overflow-hidden flex flex-col md:flex-row">
+
+    <!-- Sidebar (Dual-Objective Mission) -->
+    <aside class="w-full md:w-80 bg-eco-900 text-white flex flex-col h-full shrink-0 shadow-xl z-10 overflow-y-auto">
+        <div class="p-6">
+            <div class="flex items-center gap-3 mb-8">
+                <svg class="w-8 h-8 text-eco-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <h1 class="text-2xl font-bold tracking-wider">Eco<span class="text-eco-500">Drive</span></h1>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-xs uppercase tracking-widest text-eco-500 font-semibold mb-3">The Mission</h2>
+                <p class="text-sm text-gray-300 leading-relaxed">End-to-end Machine Learning pipeline predicting pre-owned electric vehicle market liquidity and valuation via Flask REST API.</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Objective 1 -->
+                <div class="bg-eco-800 rounded-lg p-4 border border-eco-700">
+                    <h3 class="font-semibold text-white text-sm mb-1">1. Classification Task</h3>
+                    <p class="text-xs text-eco-100">Predicts Market Liquidity (High vs Low Demand).</p>
+                </div>
+                <!-- Objective 2 -->
+                <div class="bg-eco-800 rounded-lg p-4 border border-eco-700">
+                    <h3 class="font-semibold text-white text-sm mb-1">2. Regression Task</h3>
+                    <p class="text-xs text-eco-100">Forecasts Fair Market Resale Price (USD).</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 border-t border-eco-700 pt-6 flex items-center text-xs text-gray-400 gap-2">
+                <span class="w-2 h-2 rounded-full bg-eco-500 animate-pulse"></span>
+                Connected to Python Backend
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden bg-gray-50">
+        <header class="bg-white shadow-sm border-b border-gray-200 px-6 py-4 flex justify-between items-center z-0 shrink-0">
+            <h2 class="text-xl font-semibold text-gray-800">Valuation Intelligence Engine</h2>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Input Form -->
+                <div class="lg:col-span-7 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="px-6 py-5 border-b border-gray-100 bg-gray-50/50">
+                        <h3 class="text-lg font-medium text-gray-900">Vehicle Specifications</h3>
+                    </div>
+                    
+                    <form id="evForm" class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Brand</label>
+                                <select id="brand" required class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md">
+                                    <option value="Tesla" selected>Tesla</option>
+                                    <option value="Nissan">Nissan</option>
+                                    <option value="Chevrolet">Chevrolet</option>
+                                    <option value="Ford">Ford</option>
+                                    <option value="Hyundai">Hyundai</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Battery Chemistry</label>
+                                <select id="chemistry" required class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md">
+                                    <option value="LFP">LFP</option>
+                                    <option value="NCA" selected>NCA</option>
+                                    <option value="NMC">NMC</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Region</label>
+                                <select id="region" required class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md">
+                                    <option value="North">North</option>
+                                    <option value="South">South</option>
+                                    <option value="East">East</option>
+                                    <option value="West" selected>West</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Vehicle Age (Years)</label>
+                                <input type="number" id="age" value="3" min="1" max="15" step="1" placeholder="e.g. 3 (1-12 yrs)" required class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Battery Capacity (kWh)</label>
+                                <input type="number" id="capacity" value="82.0" min="20" max="150" step="0.1" placeholder="e.g. 82.0 (40-100 kWh)" required class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Charging Speed (kW)</label>
+                                <input type="number" id="speed" value="250" min="10" max="350" step="1" placeholder="e.g. 250 (50-350 kW)" required class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Max Range (km)</label>
+                                <input type="number" id="range" value="500" min="100" max="800" step="1" placeholder="e.g. 500 (200-600 km)" required class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Odometer Reading (km)</label>
+                                <input type="number" id="odometer" value="45000" min="0" max="300000" step="1" placeholder="e.g. 45000 (10k-150k km)" required class="mt-1 block w-full pl-3 py-2 border border-gray-300 rounded-md">
+                            </div>
+                        </div>
+
+                        <div class="mt-8 pt-5 border-t border-gray-100 flex justify-end">
+                            <button type="submit" id="submitBtn" class="py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-eco-600 hover:bg-eco-700">
+                                Generate ML Report
+                            </button>
+                        </div>
+                        <div id="errorMessage" class="hidden mt-3 text-sm text-red-600 text-right"></div>
+                    </form>
+                </div>
+
+                <!-- Results Dashboard -->
+                <div class="lg:col-span-5 relative">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden sticky top-0 h-full flex flex-col min-h-[500px]">
+                        <div class="px-6 py-5 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-900">Intelligence Output</h3>
+                            <span id="statusBadge" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Idle</span>
+                        </div>
+                        
+                        <div class="p-6 flex-1 flex flex-col justify-center items-center relative">
+                            
+                            <!-- Initial -->
+                            <div id="initialState" class="text-center w-full">
+                                <h3 class="mt-4 text-sm font-medium text-gray-900">No Vehicle Data</h3>
+                                <p class="mt-1 text-sm text-gray-500">Submit form to fetch predictions from Python API.</p>
+                            </div>
+
+                            <!-- Loading -->
+                            <div id="loadingState" class="hidden text-center w-full absolute inset-0 bg-white/90 z-10 flex flex-col items-center justify-center">
+                                <svg class="animate-spin h-10 w-10 text-eco-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                <p class="text-sm font-medium text-gray-700 animate-pulse">Running ML Ensembles...</p>
+                            </div>
+
+                            <!-- Results -->
+                            <div id="resultsState" class="hidden w-full h-full flex flex-col">
+                                <div class="bg-gray-50 rounded-lg p-4 mb-6 border border-gray-100">
+                                    <div class="text-xs text-gray-500 uppercase font-semibold mb-1">Target EV Profile</div>
+                                    <div class="text-lg font-bold text-gray-900" id="resTitle">--</div>
+                                </div>
+
+                                <div class="mb-6 fade-in" style="animation-delay: 0.1s;">
+                                    <div class="flex justify-between items-end mb-2">
+                                        <div>
+                                            <div class="text-xs text-gray-500 font-medium">Engineered Feature</div>
+                                            <div class="text-sm font-semibold text-gray-800">Energy Efficiency Index</div>
+                                        </div>
+                                        <div class="text-xl font-bold text-brand-blue" id="resEEI">--</div>
+                                    </div>
+                                </div>
+
+                                <hr class="border-gray-100 my-4">
+
+                                <div class="mb-6 fade-in" style="animation-delay: 0.3s;">
+                                    <div class="text-xs text-gray-500 font-medium mb-2">1. Classification: Market Liquidity</div>
+                                    <div id="liquidityCard" class="rounded-lg p-4 flex items-center gap-4 border">
+                                        <div id="liquidityIcon" class="p-3 rounded-full"></div>
+                                        <div>
+                                            <div class="text-lg font-bold" id="resLiquidity">--</div>
+                                            <div class="text-xs" id="resLiquidityDesc">--</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="fade-in" style="animation-delay: 0.5s;">
+                                    <div class="text-xs text-gray-500 font-medium mb-2">2. Regression: Resale Valuation</div>
+                                    <div class="bg-white border-2 border-eco-500 rounded-lg p-5 text-center">
+                                        <p class="text-xs text-gray-500 uppercase font-semibold">Fair Market Price</p>
+                                        <h2 class="text-4xl font-extrabold text-eco-700 my-2" id="resPrice">$0</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const form = document.getElementById('evForm');
+        
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const errorMsg = document.getElementById('errorMessage');
+            errorMsg.classList.add('hidden');
+
+            // 1. Gather exact keys required by Python Pandas DataFrame
+            const data = {
+                Brand: document.getElementById('brand').value,
+                Battery_Chemistry: document.getElementById('chemistry').value,
+                Region: document.getElementById('region').value,
+                Vehicle_Age_Years: parseFloat(document.getElementById('age').value),
+                Battery_Capacity_kWh: parseFloat(document.getElementById('capacity').value),
+                Charging_Speed_kW: parseFloat(document.getElementById('speed').value),
+                Max_Range_km: parseFloat(document.getElementById('range').value),
+                Odometer_km: parseFloat(document.getElementById('odometer').value)
+            };
+
+            // 2. Trigger Loading State
+            document.getElementById('initialState').classList.add('hidden');
+            document.getElementById('resultsState').classList.add('hidden');
+            document.getElementById('loadingState').classList.remove('hidden');
+            submitBtn.disabled = true;
+            
+            try {
+                // 3. Make HTTP POST request to Flask API
+                const response = await fetch('http://127.0.0.1:5000/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'success') {
+                    // --- UPDATE UI WITH REAL PREDICTIONS ---
+                    document.getElementById('resTitle').innerText = `${data.Vehicle_Age_Years}-Year-Old ${data.Brand} (${data.Battery_Chemistry})`;
+                    document.getElementById('resEEI').innerText = result.engineered_eei.toFixed(2);
+                    
+                    const liqCard = document.getElementById('liquidityCard');
+                    const liqIcon = document.getElementById('liquidityIcon');
+                    
+                    if(result.liquidity_prediction === 1) {
+                        liqCard.className = "rounded-lg p-4 flex items-center gap-4 border border-green-200 bg-green-50 text-green-800";
+                        liqIcon.className = "p-3 rounded-full bg-green-200 text-green-700";
+                        document.getElementById('resLiquidity').innerText = "Fast Sale (High Demand)";
+                        document.getElementById('resLiquidityDesc').innerText = "Model Predicts: Vehicle will sell rapidly.";
+                    } else {
+                        liqCard.className = "rounded-lg p-4 flex items-center gap-4 border border-orange-200 bg-orange-50 text-orange-800";
+                        liqIcon.className = "p-3 rounded-full bg-orange-200 text-orange-700";
+                        document.getElementById('resLiquidity').innerText = "Slow Sale (Low Demand)";
+                        document.getElementById('resLiquidityDesc').innerText = "Model Predicts: Vehicle may sit on lot.";
+                    }
+
+                    document.getElementById('resPrice').innerText = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(result.price_prediction);
+
+                    document.getElementById('loadingState').classList.add('hidden');
+                    document.getElementById('resultsState').classList.remove('hidden');
+                } else {
+                    throw new Error(result.message);
+                }
+
+            } catch (error) {
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('initialState').classList.remove('hidden');
+                errorMsg.innerText = "Error connecting to ML Backend. Make sure app.py is running on port 5000.";
+                errorMsg.classList.remove('hidden');
+                console.error("API Error:", error);
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
