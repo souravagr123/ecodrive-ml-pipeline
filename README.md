@@ -113,7 +113,7 @@ Project_EcoDrive/
 ### 1. Clone & Install Dependencies
 ```bash
 git clone https://github.com/souravagr123/ecodrive-ml-pipeline.git
-cd Project_EcoDrive
+cd ecodrive-ml-pipeline
 pip install -r requirements.txt
 ```
 
